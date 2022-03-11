@@ -42,8 +42,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 [👍] **Navbar**  
 [👍] **Slider**  
-[ ] Listing Products  
-[ ] Footer  
+[👍] **Listing Products**  
+[👍] **Footer**  
 [ ] Product Page Design  
 [ ] Shopping Cart Design  
 [ ] Order Tracking  

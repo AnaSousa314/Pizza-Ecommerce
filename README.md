@@ -45,6 +45,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [👍] **Listing Products**  
 [👍] **Footer**  
 [👍] **Product Page Design**  
-[ ] Shopping Cart Design  
+[👍] **Shopping Cart Design**  
 [ ] Order Tracking  
 [ ] Responsive Design   

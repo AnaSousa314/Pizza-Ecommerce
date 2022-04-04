@@ -40,6 +40,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Pizzaria  
 
+### Front-End
+
 [👍] **Navbar**  
 [👍] **Slider**  
 [👍] **Listing Products**  
@@ -47,4 +49,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [👍] **Product Page Design**  
 [👍] **Shopping Cart Design**  
 [👍] **Order Tracking Page**
-[ ] Responsive Design   
+[👍] **Responsive Design**  
+
+<hr>
+
+### Back-End
+[👍] **MongoDB Models**

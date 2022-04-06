@@ -48,10 +48,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [👍] **Footer**  
 [👍] **Product Page Design**  
 [👍] **Shopping Cart Design**  
-[👍] **Order Tracking Page**
+[👍] **Order Tracking Page**  
 [👍] **Responsive Design**  
 
 <hr>
 
 ### Back-End
-[👍] **MongoDB Models**
+[👍] **MongoDB Models**  
+[👍] **Rest API MongoDB**  
+[ ] Redux  
+[ ] Paypal Integration  
+[ ] Cash Payment Food Ordering  
+[ ] Admin Dashboard  
+[ ] Cookie Auth  
+[ ] Add New Product  
+[ ] Upload Image with Cloudinary  

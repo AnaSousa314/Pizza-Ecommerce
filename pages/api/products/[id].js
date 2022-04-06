@@ -29,7 +29,7 @@ export default async function handler(req,res){
 
   if (method === "DELETE") {
     try {
-      const product = await Product.create(req.body);
+      const product = await Product.deleteOne(id)
       res.status(201).json(product)
     } catch (error) {
       res.status(500).json(error)

@@ -56,7 +56,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### Back-End
 [👍] **MongoDB Models**  
 [👍] **Rest API MongoDB**  
-[ ] Redux  
+[👍] **Redux**  
 [ ] Paypal Integration  
 [ ] Cash Payment Food Ordering  
 [ ] Admin Dashboard  

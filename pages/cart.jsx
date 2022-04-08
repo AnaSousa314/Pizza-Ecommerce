@@ -1,9 +1,74 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Cart.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useEffect } from "react";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
+
 const Cart = () => {
+  const [open, setOpen] = useState(false);
+
+  // This values are the props in the UI
+  const amount = "2";
+  const currency = "BRL";
+  const style = { layout: "vertical" };
+
+  // Custom component to wrap the PayPalButtons and handle currency changes
+  const ButtonWrapper = ({ currency, showSpinner }) => {
+    // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
+    // This is the main reason to wrap the PayPalButtons in a new component
+    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+
+    useEffect(() => {
+      dispatch({
+        type: "resetOptions",
+        value: {
+          ...options,
+          currency: currency,
+        },
+      });
+    }, [currency, showSpinner]);
+
+    return (
+      <>
+        {showSpinner && isPending && <div className="spinner" />}
+        <PayPalButtons
+          style={style}
+          disabled={false}
+          forceReRender={[amount, currency, style]}
+          fundingSource={undefined}
+          createOrder={(data, actions) => {
+            return actions.order
+              .create({
+                purchase_units: [
+                  {
+                    amount: {
+                      currency_code: currency,
+                      value: amount,
+                    },
+                  },
+                ],
+              })
+              .then((orderId) => {
+                // Your code here after create the order
+                return orderId;
+              });
+          }}
+          onApprove={function (data, actions) {
+            return actions.order.capture().then(function () {
+              // Your code here after capture the order
+            });
+          }}
+        />
+      </>
+    );
+  };
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   return (
@@ -20,7 +85,7 @@ const Cart = () => {
           </tr>
 
           {cart.products.map((product) => {
-            console.log(product.extras)
+            console.log(product.extras);
             return (
               <tr className={styles.tr} key={product._id}>
                 <td>
@@ -38,10 +103,8 @@ const Cart = () => {
                 </td>
                 <td>
                   <span className={styles.extras}>
-                    {product.extras.map((extra)=>{
-                      return(
-                        <p key={extra._id}>{extra.text}, </p> 
-                      )
+                    {product.extras.map((extra) => {
+                      return <p key={extra._id}>{extra.text}, </p>;
                     })}
                   </span>
                 </td>
@@ -52,7 +115,9 @@ const Cart = () => {
                   <span className={styles.quantity}>{product.quantity}</span>
                 </td>
                 <td>
-                  <span className={styles.total}>R${product.price * product.quantity}</span>
+                  <span className={styles.total}>
+                    R${product.price * product.quantity}
+                  </span>
                 </td>
               </tr>
             );
@@ -72,7 +137,23 @@ const Cart = () => {
             <b className={styles.totalTextTitle}>Total:</b>R${cart.total}
           </div>
 
-          <button className={styles.button}>FINALIZAR COMPRA</button>
+          {open ? (
+            <div className={styles.paymentMethods}>
+              <button className={styles.payButton}>CASH ONDELIVERY</button>
+              <PayPalScriptProvider
+                options={{
+                  "client-id": "test",
+                  components: "buttons",
+                  currency: "BRL",
+                  "disable-funding": "credit,card,p24",
+                }}
+              >
+                <ButtonWrapper currency={currency} showSpinner={false} />
+              </PayPalScriptProvider>
+            </div>
+          ) : (
+            <button onClick={()=>setOpen(true)} className={styles.button}>FINALIZAR COMPRA</button>
+          )}
         </div>
       </div>
     </div>

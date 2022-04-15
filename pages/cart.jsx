@@ -60,8 +60,9 @@ const Cart = () => {
               });
           }}
           onApprove={function (data, actions) {
-            return actions.order.capture().then(function () {
+            return actions.order.capture().then(function (details) {
               // Your code here after capture the order
+              console.log(details)
             });
           }}
         />
@@ -75,6 +76,7 @@ const Cart = () => {
     <div className={styles.container}>
       <div className={styles.left}>
         <table className={styles.table}>
+        <tbody>
           <tr className={styles.trTitle}>
             <th>Product</th>
             <th>Name</th>
@@ -83,45 +85,48 @@ const Cart = () => {
             <th>Quatity</th>
             <th>Total</th>
           </tr>
+        </tbody>
 
-          {cart.products.map((product) => {
-            console.log(product.extras);
-            return (
-              <tr className={styles.tr} key={product._id}>
-                <td>
-                  <div className={styles.imgContainer}>
-                    <Image
-                      src={product.img}
-                      alt=""
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <span className={styles.name}>{product.title}</span>
-                </td>
-                <td>
-                  <span className={styles.extras}>
-                    {product.extras.map((extra) => {
-                      return <p key={extra._id}>{extra.text}, </p>;
-                    })}
-                  </span>
-                </td>
-                <td>
-                  <span className={styles.price}>R${product.price}</span>
-                </td>
-                <td>
-                  <span className={styles.quantity}>{product.quantity}</span>
-                </td>
-                <td>
-                  <span className={styles.total}>
-                    R${product.price * product.quantity}
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
+          <tbody>
+            {cart.products.map((product) => {
+              console.log(product.extras);
+              return (
+                <tr className={styles.tr} key={product._id}>
+                  <td>
+                    <div className={styles.imgContainer}>
+                      <Image
+                        src={product.img}
+                        alt=""
+                        layout="fill"
+                        objectFit="cover"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <span className={styles.name}>{product.title}</span>
+                  </td>
+                  <td>
+                    <span className={styles.extras}>
+                      {product.extras.map((extra) => {
+                        return <p key={extra._id}>{extra.text}, </p>;
+                      })}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={styles.price}>R${product.price}</span>
+                  </td>
+                  <td>
+                    <span className={styles.quantity}>{product.quantity}</span>
+                  </td>
+                  <td>
+                    <span className={styles.total}>
+                      R${product.price * product.quantity}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
       <div className={styles.right}>
@@ -136,13 +141,12 @@ const Cart = () => {
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Total:</b>R${cart.total}
           </div>
-
           {open ? (
             <div className={styles.paymentMethods}>
-              <button className={styles.payButton}>CASH ONDELIVERY</button>
+              <button className={styles.payButton}>CASH ON DELIVERY</button>
               <PayPalScriptProvider
                 options={{
-                  "client-id": "test",
+                  "client-id": `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
                   components: "buttons",
                   currency: "BRL",
                   "disable-funding": "credit,card,p24",

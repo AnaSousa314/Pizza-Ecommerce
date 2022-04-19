@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "../../styles/Order.module.css";
 import Image from "next/image";
+import axios from "axios"
 
 const Order = ({order}) => {
 
-  const status = 0;
+  const status = order.status;
 
   const statusClass = (index) =>{
     if(index - status < 1) return styles.done;
@@ -26,16 +27,16 @@ const Order = ({order}) => {
             </tr>
             <tr className={styles.tr}>
               <td>
-                <span className={styles.id}>123456789</span>
+                <span className={styles.id}>{order._id}</span>
               </td>
               <td>
-                <span className={styles.name}>Maria Silva</span>
+                <span className={styles.name}>{order.customer}</span>
               </td>
               <td>
-                <span className={styles.address}>Rua Amora nº 184 - PA</span>
+                <span className={styles.address}>{order.address}</span>
               </td>
               <td>
-                <span className={styles.total}>$39.80</span>
+                <span className={styles.total}>R${order.total}</span>
               </td>
             </tr>
           </table>
@@ -79,13 +80,13 @@ const Order = ({order}) => {
         <div className={styles.wrapper}>
           <h2 className={styles.title}>CARRINHO</h2>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Subtotal:</b>R$79.60
+            <b className={styles.totalTextTitle}>Subtotal:</b>R${order.total}
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Desconto:</b>R$ 0.00
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Total:</b>R$79.60
+            <b className={styles.totalTextTitle}>Total:</b>R${order.total}
           </div>
 
           <button disabled className={styles.button}>

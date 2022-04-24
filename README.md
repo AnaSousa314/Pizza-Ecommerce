@@ -59,7 +59,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [👍] **Redux**  
 [👍] **Paypal Integration**  
 [👍] **Cash Payment Food Ordering**  
-[ ] Admin Dashboard  
+[👍] Admin Dashboard  
 [ ] Cookie Auth  
 [ ] Add New Product  
 [ ] Upload Image with Cloudinary  

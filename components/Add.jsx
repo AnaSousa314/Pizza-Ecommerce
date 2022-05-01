@@ -12,8 +12,22 @@ const Add = ({setClose}) =>{
   const [extra,setExtra] = useState(null)
   const [extraOptions,setExtraOPtions] = useState([])
 
+  const changePrice = (e,index) =>{
+    const currentPrices = prices;
+    currentPrices[index] = e.target.value;
+    setPrices(currentPrices)
+  }
+
   const handleExtraInput = (e) =>{
     setExtra({...extra,[e.target.name]: e.target.value})
+  };
+
+  const handleExtra = (e) =>{
+    setExtraOPtions(prev=>[...prev,extra])
+  }
+
+  const handleCreate = async()=>{
+
   }
 
   return(
@@ -23,61 +37,83 @@ const Add = ({setClose}) =>{
         <h1>Adicione uma nova Pizza</h1>
         <div className={styles.item}>
           <label htmlFor="" className={styles.label}>Escolha uma imagem</label>
-          <input type="file" name="" id="" />
+          <input type="file" name="" id="" onChange={(e)=>setFile(e.target.files[0])}/> {/* é [0] pq não serão multiplos arquivos */}
         </div>
 
         <div className={styles.item}>
           <label htmlFor="" className={styles.label}>Título</label>
-          <input type="text" name="" id="" onChange={(e)=>setTitle(e.target.value)}/>
+          <input type="text" name="" id="" onChange={(e)=>setTitle(e.target.value)} className={styles.input}/>
         </div>
 
         <div className={styles.item}>
           <label htmlFor="" className={styles.label}>Descrição</label>
-          <input type="text" name="" id="" rows={4} onChange={(e)=>setDesc(e.target.value)}/>
+          <textarea 
+            type="text" 
+            name="" 
+            id="" 
+            rows={4} 
+            onChange={(e)=>setDesc(e.target.value)}
+          
+          />
         </div>
 
         <div className={styles.item}>
           <label htmlFor="" className={styles.label}>Prices</label>
-          <input 
-            className={`${styles.input} ${styles.inputSm}`}
-            type="number" 
-            placeholder="Pequena" 
-            onChange={(e)=>changePrice(e,0)}
-          />
-          <input 
-            className={`${styles.input} ${styles.inputSm}`}
-            type="number" 
-            placeholder="Media" 
-            onChange={(e)=>changePrice(e,0)}
-          />
-          <input 
-            className={`${styles.input} ${styles.inputSm}`}
-            type="number" 
-            placeholder="Grande" 
-            onChange={(e)=>changePrice(e,0)}
-          />
+
+          <div className={styles.priceContainer}>
+            <input 
+              className={`${styles.input} ${styles.inputSm}`}
+              type="number" 
+              placeholder="Pequena" 
+              onChange={(e)=>changePrice(e,0)}
+            />
+            <input 
+              className={`${styles.input} ${styles.inputSm}`}
+              type="number" 
+              placeholder="Media" 
+              onChange={(e)=>changePrice(e,0)}
+            />
+            <input 
+              className={`${styles.input} ${styles.inputSm}`}
+              type="number" 
+              placeholder="Grande" 
+              onChange={(e)=>changePrice(e,0)}
+            />
+          </div>
         </div>
 
         <div className={styles.item}>
           <label htmlFor="" className={styles.label}>Extra</label>
-          <input 
-            className={`${styles.input} ${styles.inputSm}`}
-            type="number" 
-            placeholder="Item" 
-            onChange={handleExtraInput}
-            name="text"
-          />
-          <input 
-            className={`${styles.input} ${styles.inputSm}`}
-            type="number" 
-            placeholder="Price" 
-            onChange={handleExtraInput}
-            name="price"
-          />
-          <button className={styles.extraButton} onClick={handleExtra}>
-            Adicionar
-          </button>
+          <div className={styles.extra}>
+            <input 
+              className={`${styles.input} ${styles.inputSm}`}
+              type="text" 
+              placeholder="Item" 
+              onChange={handleExtraInput}
+              name="text"
+            />
+            <input 
+              className={`${styles.input} ${styles.inputSm}`}
+              type="number" 
+              placeholder="Price" 
+              onChange={handleExtraInput}
+              name="price"
+            />
+            <button className={styles.extraButton} onClick={handleExtra}>
+              Adicionar
+            </button>
+          </div>
+          <div className={styles.extraItems}>
+            {extraOptions.map((option)=>(
+              <span key={option.text} className={styles.extraItem}>
+                {option.text}
+              </span>
+            ))}
+          </div>
         </div>
+        <button className={styles.addButton} onClick={handleCreate}>
+          Create
+        </button>
       </div>
     </div>
   ) 

@@ -27,7 +27,28 @@ const Add = ({setClose}) =>{
   }
 
   const handleCreate = async()=>{
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset","uploads");
+    try {
+      const uploadRes = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/upload`,data);
 
+      const {url} = uploadRes.data;
+      const newProduct = {
+        title,
+        desc,
+        prices,
+        extraOptions,
+        img: url
+      };
+
+      await axios.post("http://localhost:3000/api/products", newProduct);
+
+      setClose(true);
+      console.log(uploadRes);
+    } catch (error) {
+      console.log({message: error});
+    }
   }
 
   return(
@@ -71,13 +92,13 @@ const Add = ({setClose}) =>{
               className={`${styles.input} ${styles.inputSm}`}
               type="number" 
               placeholder="Media" 
-              onChange={(e)=>changePrice(e,0)}
+              onChange={(e)=>changePrice(e,1)}
             />
             <input 
               className={`${styles.input} ${styles.inputSm}`}
               type="number" 
               placeholder="Grande" 
-              onChange={(e)=>changePrice(e,0)}
+              onChange={(e)=>changePrice(e,2)}
             />
           </div>
         </div>

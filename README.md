@@ -53,7 +53,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 <hr>
 
-### Back-End
+### Front-End e Back-End
 [👍] **MongoDB Models**  
 [👍] **Rest API MongoDB**  
 [👍] **Redux**  
@@ -62,4 +62,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [👍] **Admin Dashboard**  
 [👍] **Cookie Auth**  
 [👍] **Add New Product**  
-[ ] Upload Image with Cloudinary  
+[👍] **Upload Image with Cloudinary**  
